@@ -22,7 +22,19 @@
 
 axios.get("https://lambda-times-backend.herokuapp.com/articles")
     .then(response => {
-        console.log(response)
+        // console.log(response)
+        const topics = [] // creates a topic array of article arrays
+        for (let [key, value] of Object.entries(response.data.articles)) {
+            topics.push(value)
+        }
+
+        // iterate over the array of arrays to pull out the articles
+        topics.forEach(topic => {
+            topic.forEach(article => {
+                articleCardMaker(article)
+            })
+        })
+
 
     })
     .catch(err => console.log(err))
